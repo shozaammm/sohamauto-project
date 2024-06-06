@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bikes</title>
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 60px 0;
+    }
+
+    header h1 {
+      margin: 0;
+      padding: 0;
+      float: left;
+    }
+
+    nav ul {
+      float: right;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    section {
+      padding: 50px 0;
+      background-color: #f2f2f2;
+    }
+
+    .bike-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .used-bike {
+      width: 30%;
+      margin-bottom: 30px;
+      padding: 10px;
+      text-align: center;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease; /* Smooth transition */
+    }
+
+    .used-bike:hover {
+      transform: translateY(-5px); /* Move up 5 pixels on hover */
+    }
+
+    .used-bike img {
+      width: 100%;
+      height: auto;
+    }
+
+    .used-bike h3 {
+      margin-top: 10px;
+    }
+
+    .used-bike p {
+      margin-top: 5px;
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>Soham Automobile</h1>
+      <nav>
+        <ul>
+          <li><a href="bikes.html" style="color: #fff; text-decoration: none;">New Bikes</a></li>
+          <li><a href="used-bikes.html" style="color: #fff; text-decoration: none;">Used Bikes</a></li>
+          <li><a href="offers.html" style="color: #fff; text-decoration: none;">Offers</a></li>
+          <li><a href="service.html" style="color: #fff; text-decoration: none;">Service</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="used-bikes" class="section">
+    <div class="container">
+      <h2>Used Bikes</h2>
+
+      <!-- Price Filter for Used Bikes -->
+      <label for="used-bike-price-filter">Filter Used Bikes by Price:</label>
+      <select id="used-bike-price-filter">
+        <option value="all">All</option>
+        <option value="50000-100000">50,000 - 1,00,000</option>
+        <option value="100001-300000">1,00,001 - 3,00,000</option>
+        <option value="300001+">3,00,001 and above</option>
+      </select>
+      
+      <div class="bike-list">
+        <!-- Used Bike 1 -->
+        <div class="used-bike" data-price="75000">
+          <img src="usedpulsar.png" alt="Used Bike 1">
+          <h3>Bajaj Pulsar</h3>
+          <p>Specifications: Engine: 280CC, MILEAGE: 45MK/L, KM: 42000KM</p>
+          <p>Price: Rs. 75,000</p>
+          <p>Year: 2018</p>
+        </div>
+        <!-- Used Bike 2 -->
+        <div class="used-bike" data-price="125000">
+          <img src="ktm.png" alt="Used Bike 2">
+          <h3>KTM duke 390</h3>
+          <p>Specifications: Engine:390CC, MILEAGE: 41MK/L, KM: 29000KM</p>
+          <p>Price: Rs. 1,25,000</p>
+          <p>Year: 2017</p>
+        </div>
+        <!-- Used Bike 3 -->
+        <div class="used-bike" data-price="90000">
+          <img src="avenger.png" alt="Used Bike 3">
+          <h3>Bajaj Avenger</h3>
+          <p>Specifications: Engine: 125CC, MILEAGE: 41MK/L, KM: 123000KM</p>
+          <p>Price: Rs. 90,000</p>
+          <p>Year: 2016</p>
+        </div>
+        <!-- Used Bike 4 -->
+        <div class="used-bike" data-price="80000">
+          <img src="usedr15.png" alt="Used Bike 4">
+          <h3>Yamaha R15</h3>
+          <p>Specifications: Engine: 400CC, MILEAGE: 39MK/L, KM: 133000KM</p>
+          <p>Price: Rs. 80,000</p>
+          <p>Year: 2019</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Soham Automobile</p>
+    </div>
+  </footer>
+
+  <script>
+    // Function to filter used bikes based on price range
+    function filterUsedBikes() {
+      const priceFilter = document.getElementById('used-bike-price-filter').value;
+      const usedBikes = document.querySelectorAll('#used-bikes .used-bike');
+      
+      usedBikes.forEach(bike => {
+        const price = parseInt(bike.getAttribute('data-price'));
+        
+        if (priceFilter === 'all') {
+          bike.style.display = 'block'; 
+        } else {
+          const [min, max] = priceFilter.split('-').map(val => parseInt(val));
+          if (price >= min && price <= max) {
+            bike.style.display = 'block'; 
+          } else {
+            bike.style.display = 'none'; 
+          }
+        }
+      });
+    }
+    
+    
+    document.getElementById('used-bike-price-filter').addEventListener('change', filterUsedBikes);
+    
+    
+    filterUsedBikes();
+  </script>
+</body>
+</html>
